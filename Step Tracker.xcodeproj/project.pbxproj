@@ -6,17 +6,22 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9E7195FA2F5ED8A60061C069 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7195F52F5ED8A60061C069 /* DashboardView.swift */; };
+		9E7195FB2F5ED8A60061C069 /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7195F62F5ED8A60061C069 /* HealthDataListView.swift */; };
+		9E7195FC2F5ED8A60061C069 /* HealthKitPermissionPrimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7195F72F5ED8A60061C069 /* HealthKitPermissionPrimingView.swift */; };
+		9E7195FD2F5ED8A60061C069 /* Step_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7195F82F5ED8A60061C069 /* Step_TrackerApp.swift */; };
+		9E7195FE2F5ED8A60061C069 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E7195F42F5ED8A60061C069 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		9E7195F42F5ED8A60061C069 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9E7195F52F5ED8A60061C069 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		9E7195F62F5ED8A60061C069 /* HealthDataListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
+		9E7195F72F5ED8A60061C069 /* HealthKitPermissionPrimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionPrimingView.swift; sourceTree = "<group>"; };
+		9E7195F82F5ED8A60061C069 /* Step_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step_TrackerApp.swift; sourceTree = "<group>"; };
 		9EDD463A2F59968D00B64B9D /* Step Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Step Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		9EDD463C2F59968D00B64B9D /* Step Tracker */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Step Tracker";
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9EDD46372F59968D00B64B9D /* Frameworks */ = {
@@ -29,10 +34,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E7195F92F5ED8A60061C069 /* Step Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				9E7195F82F5ED8A60061C069 /* Step_TrackerApp.swift */,
+				9E7195F52F5ED8A60061C069 /* DashboardView.swift */,
+				9E7195F62F5ED8A60061C069 /* HealthDataListView.swift */,
+				9E7195F72F5ED8A60061C069 /* HealthKitPermissionPrimingView.swift */,
+				9E7195F42F5ED8A60061C069 /* Assets.xcassets */,
+			);
+			path = "Step Tracker";
+			sourceTree = "<group>";
+		};
 		9EDD46312F59968D00B64B9D = {
 			isa = PBXGroup;
 			children = (
-				9EDD463C2F59968D00B64B9D /* Step Tracker */,
+				9E7195F92F5ED8A60061C069 /* Step Tracker */,
 				9EDD463B2F59968D00B64B9D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,9 +76,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				9EDD463C2F59968D00B64B9D /* Step Tracker */,
 			);
 			name = "Step Tracker";
 			packageProductDependencies = (
@@ -109,6 +123,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E7195FE2F5ED8A60061C069 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +134,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E7195FA2F5ED8A60061C069 /* DashboardView.swift in Sources */,
+				9E7195FB2F5ED8A60061C069 /* HealthDataListView.swift in Sources */,
+				9E7195FC2F5ED8A60061C069 /* HealthKitPermissionPrimingView.swift in Sources */,
+				9E7195FD2F5ED8A60061C069 /* Step_TrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
