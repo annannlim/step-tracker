@@ -13,7 +13,74 @@ class HealthKitManager {
 
     let store = HKHealthStore()
     let types: Set = [HKQuantityType(.stepCount), HKQuantityType(.bodyMass)]
+
     
+    func fetchStepCount() async {
+        
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: .now)
+        let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
+        let startDate = calendar.date(byAdding: .day, value: -28, to: endDate)
+        
+        let queryPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+        let samplePredicate = HKSamplePredicate.quantitySample(type: HKQuantityType(.stepCount), predicate: queryPredicate)
+        let stepsQuery = HKStatisticsCollectionQueryDescriptor(predicate: samplePredicate,
+                                                               options: .cumulativeSum,
+                                                               anchorDate: endDate,
+                                                               intervalComponents: .init(day: 1))
+        let stepCounts = try! await stepsQuery.result(for: store)
+        
+//        for steps in stepCounts.statistics() {
+//            print(steps.sumQuantity() ?? 0)
+//        }
+    }
+    
+    func fetchWeights() async {
+        
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: .now)
+        let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
+        let startDate = calendar.date(byAdding: .day, value: -28, to: endDate)
+        
+        let queryPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+        let samplePredicate = HKSamplePredicate.quantitySample(type: HKQuantityType(.bodyMass), predicate: queryPredicate)
+        let weightQuery = HKStatisticsCollectionQueryDescriptor(predicate: samplePredicate,
+                                                               options: .mostRecent,
+                                                               anchorDate: endDate,
+                                                               intervalComponents: .init(day: 1))
+        let weights = try! await weightQuery.result(for: store)
+        
+//        for weight in weights.statistics() {
+//            print(weight.mostRecentQuantity()?.doubleValue(for: HKUnit.pound()) ?? 0)
+//        }
+    }
+
+    
+//    func fetchStepCountDummy() async {
+//        // Create a predicate for this week's samples.
+//        let calendar = Calendar(identifier: .gregorian)
+//        let today = calendar.startOfDay(for: Date())
+//        guard let endDate = calendar.date(byAdding: .day, value: 1, to: today) else {
+//            fatalError("*** Unable to calculate the end time ***")
+//        }
+//        guard let startDate = calendar.date(byAdding: .day, value: -7, to: endDate) else {
+//            fatalError("*** Unable to calculate the start time ***")
+//        }
+//        let thisWeek = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+//        // Create the query descriptor.
+//        let stepType = HKQuantityType(.stepCount)
+//        let stepsThisWeek = HKSamplePredicate.quantitySample(type: stepType, predicate:thisWeek)
+//        let everyDay = DateComponents(day:1)
+//        
+//        let sumOfStepsQuery = HKStatisticsCollectionQueryDescriptor(
+//            predicate: stepsThisWeek,
+//            options: .cumulativeSum,
+//            anchorDate: endDate,
+//            intervalComponents: everyDay)
+//        
+//        let stepCounts = try! await sumOfStepsQuery.result(for: store)
+//    }
+
 //    func addSimulatorData() async {
 //        
 //        var mockSamples: [HKQuantitySample] = []
