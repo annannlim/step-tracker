@@ -12,7 +12,7 @@ struct HealthMetric: Identifiable {
     var date: Date
     var value: Double
     
-    static var mockdata: [HealthMetric] {
+    static var mockData: [HealthMetric] {
         var array: [HealthMetric] = []
         for i in 0..<28 {
             let metric = HealthMetric(date: Calendar.current.date(byAdding: .day, value: -i, to: .now)!,
