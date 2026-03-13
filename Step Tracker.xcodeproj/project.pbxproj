@@ -19,6 +19,7 @@
 		9EF786362F647BE300C8A8DB /* ChartDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF786352F647BE300C8A8DB /* ChartDataTypes.swift */; };
 		9EF7863A2F647CF800C8A8DB /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF786392F647CEC00C8A8DB /* Date+Ext.swift */; };
 		9EF7863D2F6485AE00C8A8DB /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 9EF7863C2F6485AE00C8A8DB /* Algorithms */; };
+		9EF7863F2F648A1E00C8A8DB /* StepPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF7863E2F648A1E00C8A8DB /* StepPieChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		9EF786332F647BB700C8A8DB /* ChartMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMath.swift; sourceTree = "<group>"; };
 		9EF786352F647BE300C8A8DB /* ChartDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataTypes.swift; sourceTree = "<group>"; };
 		9EF786392F647CEC00C8A8DB /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		9EF7863E2F648A1E00C8A8DB /* StepPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepPieChart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				9EF7862D2F64694900C8A8DB /* StepBarChart.swift */,
 				9EF786332F647BB700C8A8DB /* ChartMath.swift */,
 				9EF786352F647BE300C8A8DB /* ChartDataTypes.swift */,
+				9EF7863E2F648A1E00C8A8DB /* StepPieChart.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				9EF786342F647BB700C8A8DB /* ChartMath.swift in Sources */,
 				9E7E12562F6303DB001D1A34 /* HealthMetric.swift in Sources */,
 				9EF786362F647BE300C8A8DB /* ChartDataTypes.swift in Sources */,
+				9EF7863F2F648A1E00C8A8DB /* StepPieChart.swift in Sources */,
 				9EF7863A2F647CF800C8A8DB /* Date+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

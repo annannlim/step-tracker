@@ -42,6 +42,8 @@ struct DashboardView: View {
                     
                     StepBarChart(selectedStat: selectedStat, chartData: hkManager.stepData)
                      
+                    StepPieChart(chartData: ChartMath.averageWeekdayCount(for: hkManager.stepData))
+                    
                     VStack(alignment: .leading) {
                         VStack(alignment: .leading) {
                             Label("Averages", systemImage: "calendar")
