@@ -59,7 +59,6 @@ struct StepBarChart: View {
                         }
                 }
                 
-                
                 RuleMark(y: .value("Average", avgStepCount))
                     .foregroundStyle(Color.secondary)
                     .lineStyle(.init(lineWidth: 1, dash: [5]))
