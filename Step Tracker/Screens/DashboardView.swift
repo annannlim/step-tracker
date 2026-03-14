@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 enum HealthMetricContext: CaseIterable, Identifiable {
     case steps, weight
@@ -27,7 +28,7 @@ struct DashboardView: View {
     @State private var isShowingPermissionPrimingSheet = false
     @State private var selectedStat: HealthMetricContext = .steps
     var isSteps: Bool { selectedStat == .steps}
-
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -39,29 +40,9 @@ struct DashboardView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     
-                    VStack {
-                        NavigationLink(value: selectedStat) {
-                            HStack {
-                                VStack {
-                                    Label("Steps", systemImage: "figure.walk")
-                                        .font(.title3.bold())
-                                        .foregroundStyle(.pink)
-                                    Text("Avg: 10K Steps")
-                                        .font(.caption)
-                                }
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                            }
-                        }
-                        .foregroundStyle(.secondary)
-                        .padding(.bottom,12)
-                        
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundStyle(.secondary)
-                            .frame(height:150)
-                    }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
+                    StepBarChart(selectedStat: selectedStat, chartData: hkManager.stepData)
+                     
+                    StepPieChart(chartData: ChartMath.averageWeekdayCount(for: hkManager.stepData))
                     
                     VStack(alignment: .leading) {
                         VStack(alignment: .leading) {
@@ -84,8 +65,9 @@ struct DashboardView: View {
                 }
             }
             .task {
-                //await hkManager.fetchStepCount()
+                await hkManager.fetchStepCount()
                 //await hkManager.fetchWeights()
+                //ChartMath.averageWeekdayCount(for: hkManager.stepData)
                 isShowingPermissionPrimingSheet = !hasSeenPermissionPriming
             }
             .navigationTitle("Dashboard")
@@ -101,6 +83,8 @@ struct DashboardView: View {
         }
         .tint(isSteps ? .pink : .indigo)
     }
+    
+  
 }
 
 #Preview {

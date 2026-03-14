@@ -14,6 +14,8 @@ class HealthKitManager {
     let store = HKHealthStore()
     let types: Set = [HKQuantityType(.stepCount), HKQuantityType(.bodyMass)]
 
+    var stepData: [HealthMetric] = []
+    var weightData: [HealthMetric] = []
     
     func fetchStepCount() async {
         
@@ -28,8 +30,14 @@ class HealthKitManager {
                                                                options: .cumulativeSum,
                                                                anchorDate: endDate,
                                                                intervalComponents: .init(day: 1))
-        let stepCounts = try! await stepsQuery.result(for: store)
-        
+        do {
+            let stepCounts = try await stepsQuery.result(for: store)
+            stepData = stepCounts.statistics().map {
+                .init(date: $0.startDate, value: $0.sumQuantity()?.doubleValue(for: .count()) ?? 0)
+            }
+        } catch {
+            
+        }
 //        for steps in stepCounts.statistics() {
 //            print(steps.sumQuantity() ?? 0)
 //        }
@@ -48,11 +56,15 @@ class HealthKitManager {
                                                                options: .mostRecent,
                                                                anchorDate: endDate,
                                                                intervalComponents: .init(day: 1))
-        let weights = try! await weightQuery.result(for: store)
-        
-//        for weight in weights.statistics() {
-//            print(weight.mostRecentQuantity()?.doubleValue(for: HKUnit.pound()) ?? 0)
-//        }
+
+        do {
+            let weights = try await weightQuery.result(for: store)
+            weightData = weights.statistics().map {
+                .init(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: HKUnit.pound()) ?? 0)
+            }
+        } catch {
+            
+        }
     }
 
     
