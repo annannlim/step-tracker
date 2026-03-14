@@ -12,6 +12,9 @@ struct WeightLineChart: View {
 
     var selectedStat: HealthMetricContext
     var chartData: [HealthMetric]
+    var minValue: Double {
+        chartData.map { $0.value }.min() ?? 0
+    }
     
     var body: some View {
         VStack {
@@ -32,13 +35,41 @@ struct WeightLineChart: View {
             .padding(.bottom,12)
             
             Chart {
+                RuleMark(y: .value("Goal", 155))
+                    .foregroundStyle(.mint)
+                    .lineStyle(.init(lineWidth:1, dash: [5]))
+                
                 ForEach(chartData) { weight in
-                    AreaMark(x: .value("Day", weight.date, unit: .day), y: .value("Value", weight.value))
-                        .foregroundStyle(Gradient(colors: [.blue.opacity(0.5), .clear ]))
-                    LineMark(x: .value("Day", weight.date, unit: .day), y: .value("Value", weight.value))
+                    AreaMark(x: .value("Day", weight.date, unit: .day),
+                             yStart: .value("Value", weight.value),
+                             yEnd: .value("Min Value", minValue)
+                    )
+                    .foregroundStyle(Gradient(colors: [.indigo.opacity(0.5), .clear]))
+                    .interpolationMethod(.catmullRom)
+
+                    LineMark(
+                        x: .value("Day", weight.date, unit: .day),
+                        y: .value("Value", weight.value)
+                    )
+                    .foregroundStyle(.indigo)
+                    .interpolationMethod(.catmullRom)
+                    .symbol(.circle)
                 }
             }
             .frame(height: 150)
+            .chartYScale(domain: .automatic(includesZero: false))
+            .chartXAxis {
+                AxisMarks {
+                    AxisValueLabel(format: .dateTime.month(.defaultDigits).day())
+                }
+            }
+            .chartYAxis {
+                AxisMarks { value in
+                    AxisGridLine()
+                        .foregroundStyle(Color.secondary.opacity(0.3))
+                    AxisValueLabel()
+                }
+            }
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
@@ -50,117 +81,3 @@ struct WeightLineChart: View {
     WeightLineChart(selectedStat: .weight, chartData: MockData.weights)
 }
 
-
-/*
- 
- import SwiftUI
- import Charts
- 
- struct StepBarChart: View {
- 
- @State private var rawSelectedDate: Date?
- 
- var selectedStat: HealthMetricContext
- var chartData: [HealthMetric]
- 
- var selectedHealthMetric: HealthMetric? {
- guard let rawSelectedDate else { return nil }
- return chartData.first {
- Calendar.current.isDate(rawSelectedDate, inSameDayAs: $0.date)
- }
- }
- 
- var avgStepCount: Double {
- guard !chartData.isEmpty else { return 0 }
- let totalSteps = chartData.reduce(0) { $0 + $1.value }
- return totalSteps/Double(chartData.count)
- }
- 
- var body: some View {
- 
- VStack {
- NavigationLink(value: selectedStat) {
- HStack {
- VStack {
- Label("Steps", systemImage: "figure.walk")
- .font(.title3.bold())
- .foregroundStyle(.pink)
- Text("Avg: \(Int(avgStepCount)) steps")
- .font(.caption)
- }
- Spacer()
- Image(systemName: "chevron.right")
- }
- }
- .foregroundStyle(.secondary)
- .padding(.bottom,12)
- 
- Chart {
- if let selectedHealthMetric {
- RuleMark(x: .value("Selected Metric", selectedHealthMetric.date, unit: .day))
- .foregroundStyle(Color.secondary.opacity(0.3))
- .offset(y: -10)
- .annotation(position: .top,
- spacing: 0,
- overflowResolution: .init(x: .fit(to: .chart), y: .disabled)) {
- annotationView
- }
- }
- 
- 
- RuleMark(y: .value("Average", avgStepCount))
- .foregroundStyle(Color.secondary)
- .lineStyle(.init(lineWidth: 1, dash: [5]))
- 
- //ForEach(HealthMetric.mockdata) { steps in
- ForEach(chartData) { steps in
- BarMark(
- x: .value("Date", steps.date, unit: .day),
- y: .value("Steps", steps.value)
- )
- .foregroundStyle(Color.pink.gradient)
- .opacity(rawSelectedDate == nil || steps.date == selectedHealthMetric?.date ? 1.0 : 0.3)
- }
- }
- .frame(height: 150)
- .chartXSelection(value: $rawSelectedDate.animation(.easeInOut))
- .chartXAxis {
- AxisMarks {
- AxisValueLabel(format: .dateTime.month(.defaultDigits).day())
- }
- }
- .chartYAxis {
- AxisMarks { value in
- AxisGridLine()
- .foregroundStyle(Color.secondary.opacity(0.3))
- AxisValueLabel((value.as(Double.self) ?? 0).formatted(.number.notation(.compactName)))
- }
- }
- }
- .padding()
- .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
- }
- 
- 
- var annotationView: some View {
- VStack(alignment: .leading) {
- Text(selectedHealthMetric?.date ?? .now, format: .dateTime.weekday(.abbreviated).month(.abbreviated).day())
- .font(.footnote.bold())
- .foregroundStyle(.secondary)
- Text(selectedHealthMetric?.value ?? 0, format: .number.precision(.fractionLength(0)))
- .fontWeight(.heavy)
- .foregroundStyle(.pink)
- }
- .padding(12)
- .background(RoundedRectangle(cornerRadius:4)
- .fill(Color(.secondarySystemBackground))
- .shadow(color: .secondary.opacity(0.3), radius: 2, x:2, y: 2)
- )
- }
- }
- 
- #Preview {
- StepBarChart(selectedStat: .steps, chartData: HealthMetric.mockData)
- }
-
- */
