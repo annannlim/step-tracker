@@ -40,34 +40,22 @@ struct DashboardView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     
-                    StepBarChart(selectedStat: selectedStat, chartData: hkManager.stepData)
-                     
-                    StepPieChart(chartData: ChartMath.averageWeekdayCount(for: hkManager.stepData))
-                    
-                    VStack(alignment: .leading) {
-                        VStack(alignment: .leading) {
-                            Label("Averages", systemImage: "calendar")
-                                .font(.title3.bold())
-                                .foregroundStyle(.pink)
-                            Text("Last 28 days")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                        .padding(.bottom,12)
+                    switch selectedStat {
+                    case .steps:
+                        StepBarChart(selectedStat: selectedStat, chartData: hkManager.stepData)
                         
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundStyle(.secondary)
-                            .frame(height:150)
+                        StepPieChart(chartData: ChartMath.averageWeekdayCount(for: hkManager.stepData))
+                    case .weight:
+                        WeightLineChart(selectedStat: selectedStat, chartData: hkManager.weightData)
+                        WeightDiffBarChart(chartData: ChartMath.averageDailyWeightDiffs(for: hkManager.weightDiffData))
                     }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
-                    
                 }
             }
+            .padding()
             .task {
                 await hkManager.fetchStepCount()
-                //await hkManager.fetchWeights()
-                //ChartMath.averageWeekdayCount(for: hkManager.stepData)
+                await hkManager.fetchWeights()
+                await hkManager.fetchWeightsForDifferentials()
                 isShowingPermissionPrimingSheet = !hasSeenPermissionPriming
             }
             .navigationTitle("Dashboard")

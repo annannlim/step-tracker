@@ -16,6 +16,7 @@ class HealthKitManager {
 
     var stepData: [HealthMetric] = []
     var weightData: [HealthMetric] = []
+    var weightDiffData: [HealthMetric] = []
     
     func fetchStepCount() async {
         
@@ -38,9 +39,6 @@ class HealthKitManager {
         } catch {
             
         }
-//        for steps in stepCounts.statistics() {
-//            print(steps.sumQuantity() ?? 0)
-//        }
     }
     
     func fetchWeights() async {
@@ -56,7 +54,6 @@ class HealthKitManager {
                                                                options: .mostRecent,
                                                                anchorDate: endDate,
                                                                intervalComponents: .init(day: 1))
-
         do {
             let weights = try await weightQuery.result(for: store)
             weightData = weights.statistics().map {
@@ -67,6 +64,29 @@ class HealthKitManager {
         }
     }
 
+    
+    func fetchWeightsForDifferentials() async {
+        
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: .now)
+        let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
+        let startDate = calendar.date(byAdding: .day, value: -29, to: endDate)
+        
+        let queryPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+        let samplePredicate = HKSamplePredicate.quantitySample(type: HKQuantityType(.bodyMass), predicate: queryPredicate)
+        let weightQuery = HKStatisticsCollectionQueryDescriptor(predicate: samplePredicate,
+                                                                options: .mostRecent,
+                                                                anchorDate: endDate,
+                                                                intervalComponents: .init(day: 1))
+        do {
+            let weights = try await weightQuery.result(for: store)
+            weightDiffData = weights.statistics().map {
+                .init(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: HKUnit.pound()) ?? 0)
+            }
+        } catch {
+            
+        }
+    }
     
 //    func fetchStepCountDummy() async {
 //        // Create a predicate for this week's samples.
