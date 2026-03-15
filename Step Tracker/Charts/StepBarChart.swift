@@ -33,7 +33,8 @@ struct StepBarChart: View {
         VStack {
             NavigationLink(value: selectedStat) {
                 HStack {
-                    VStack {
+                    //VStack {
+                    VStack(alignment: .leading) {
                         Label("Steps", systemImage: "figure.walk")
                             .font(.title3.bold())
                             .foregroundStyle(.pink)
