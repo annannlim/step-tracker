@@ -13,6 +13,8 @@ enum STError: LocalizedError {
     case sharingDenied(quantityType: String)
     case noData
     case unableToCompleteRequest
+    case invalidValue
+    
     
     var errorDescription: String? {
         switch self {
@@ -24,6 +26,8 @@ enum STError: LocalizedError {
             "No Data"
         case .unableToCompleteRequest:
             "Unable to Complete Request"
+        case .invalidValue:
+            "Invalid Value"
         }
     }
     
@@ -37,6 +41,8 @@ enum STError: LocalizedError {
             "There is no data for this Health statistic."
         case .unableToCompleteRequest:
             "We are unable to complete your request at this time.\n\nPlease try again later."
+        case .invalidValue:
+            "Must be a numeric value with a maximum of one decimal place."
         }
     }
 }
