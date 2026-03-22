@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E3C44052F6716A90035AEC8 /* WeightDiffBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C44042F67169E0035AEC8 /* WeightDiffBarChart.swift */; };
+		9E6B67792F7027D70018BB2D /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6B67782F7027D70018BB2D /* Array+Ext.swift */; };
 		9E7195FA2F5ED8A60061C069 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7195F52F5ED8A60061C069 /* DashboardView.swift */; };
 		9E7195FB2F5ED8A60061C069 /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7195F62F5ED8A60061C069 /* HealthDataListView.swift */; };
 		9E7195FC2F5ED8A60061C069 /* HealthKitPermissionPrimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7195F72F5ED8A60061C069 /* HealthKitPermissionPrimingView.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		9E3C44042F67169E0035AEC8 /* WeightDiffBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDiffBarChart.swift; sourceTree = "<group>"; };
+		9E6B67782F7027D70018BB2D /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		9E7195F42F5ED8A60061C069 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E7195F52F5ED8A60061C069 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		9E7195F62F5ED8A60061C069 /* HealthDataListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				9EF786392F647CEC00C8A8DB /* Date+Ext.swift */,
+				9E6B67782F7027D70018BB2D /* Array+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				9E7E12562F6303DB001D1A34 /* HealthMetric.swift in Sources */,
 				9EF786362F647BE300C8A8DB /* ChartDataTypes.swift in Sources */,
 				9EF7863F2F648A1E00C8A8DB /* StepPieChart.swift in Sources */,
+				9E6B67792F7027D70018BB2D /* Array+Ext.swift in Sources */,
 				9EC6F2EC2F6595A500D0021D /* WeightLineChart.swift in Sources */,
 				9EF7863A2F647CF800C8A8DB /* Date+Ext.swift in Sources */,
 			);
