@@ -1,20 +1,32 @@
 //
-//  ChartMath.swift
+//  ChartHelper.swift
 //  Step Tracker
 //
-//  Created by Annabel Lim on 3/13/26.
+//  Created by Annabel Lim on 3/20/26.
 //
 
 import Foundation
 import Algorithms
 
-struct ChartMath {
+struct ChartHelper {
+    
+    static func convert(data: [HealthMetric]) -> [DateValueChartData] {
+        data.map {.init(date: $0.date, value: $0.value)}
+    }
+    
+    static func parseSelectedData(from data: [DateValueChartData], in selectedDate: Date?) -> DateValueChartData? {
+        guard let selectedDate else { return nil }
+        return data.first {
+            Calendar.current.isDate(selectedDate, inSameDayAs: $0.date)
+        }
+    }
+    
     
     static func averageWeekdayCount(for metric: [HealthMetric]) -> [DateValueChartData] {
         let sortedByWeekday = metric.sorted { $0.date.weekdayInt < $1.date.weekdayInt }
         //let sortedByWeekday = metric.sorted(using: KeyPathComparator(\.date.weekdayInt))
         let weekdayArray = sortedByWeekday.chunked { $0.date.weekdayInt == $1.date.weekdayInt }
-
+        
         var weekdayChartData: [DateValueChartData] = []
         for array in weekdayArray {
             guard let firstValue = array.first else { continue }
@@ -27,7 +39,7 @@ struct ChartMath {
     
     
     static func averageDailyWeightDiffs(for weights: [HealthMetric]) -> [DateValueChartData] {
-
+        
         var diffValues: [(date: Date, value: Double)] = []
         guard weights.count > 1 else { return [] }
         
@@ -40,7 +52,7 @@ struct ChartMath {
         let sortedByWeekday = diffValues.sorted { $0.date.weekdayInt < $1.date.weekdayInt }
         //let sortedByWeekday = diffValues.sorted(using: KeyPathComparator(\.date.weekdayInt))
         let weekdayArray = sortedByWeekday.chunked { $0.date.weekdayInt == $1.date.weekdayInt }
-                       
+        
         var weekdayChartData: [DateValueChartData] = []
         for array in weekdayArray {
             guard let firstValue = array.first else { continue }
@@ -51,6 +63,4 @@ struct ChartMath {
         
         return weekdayChartData
     }
-    
 }
-
