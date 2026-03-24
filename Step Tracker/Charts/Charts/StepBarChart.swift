@@ -19,37 +19,38 @@ struct StepBarChart: View {
         ChartHelper.parseSelectedData(from: chartData, in: rawSelectedDate)
     }
     
+    var averageSteps: Int {
+        Int(chartData.map { $0.value }.average)
+    }
+
     var body: some View {
 
-        let config = ChartContainerConfiguration(
-                title: "Steps",
-                symbol: "figure.walk",
-                subtitle: "Avg: \(Int(ChartHelper.averageValue(for: chartData))) steps",
-                context: .steps,
-                isNav: true)
+        ChartContainer(chartType: .stepBar(average: averageSteps)) {
 
-        ChartContainer(config: config) {
-            if chartData.isEmpty {
-                ChartEmptyView(systemImageName: "chart.bar",
-                               title: "No Data",
-                               description: "There is no step count data from the Health App.")
-            } else {
                 Chart {
                     if let selectedData {
                         ChartAnnotationView(data: selectedData, context: .steps)
                     }
                     
-                    RuleMark(y: .value("Average", ChartHelper.averageValue(for: chartData)))
-                        .foregroundStyle(Color.secondary)
-                        .lineStyle(.init(lineWidth: 1, dash: [5]))
+                    if !chartData.isEmpty {
+                        RuleMark(y: .value("Average", averageSteps))
+                            .foregroundStyle(Color.secondary)
+                            .lineStyle(.init(lineWidth: 1, dash: [5]))
+                            .accessibilityHidden(true)
+                        
+                    }
                     
                     ForEach(chartData) { steps in
-                        BarMark(
-                            x: .value("Date", steps.date, unit: .day),
-                            y: .value("Steps", steps.value)
-                        )
-                        .foregroundStyle(Color.pink.gradient)
-                        .opacity(rawSelectedDate == nil || steps.date == selectedData?.date ? 1.0 : 0.3)
+                        Plot {
+                            BarMark(
+                                x: .value("Date", steps.date, unit: .day),
+                                y: .value("Steps", steps.value)
+                            )
+                            .foregroundStyle(Color.pink.gradient)
+                            .opacity(rawSelectedDate == nil || steps.date == selectedData?.date ? 1.0 : 0.3)
+                        }
+                        .accessibilityLabel(steps.date.accesibilityDate)
+                        .accessibilityValue("\(Int(steps.value)) steps")
                     }
                 }
                 .frame(height: 150)
@@ -66,7 +67,14 @@ struct StepBarChart: View {
                         AxisValueLabel((value.as(Double.self) ?? 0).formatted(.number.notation(.compactName)))
                     }
                 }
-            }
+                .overlay {
+                    if chartData.isEmpty {
+                        ChartEmptyView(systemImageName: "chart.bar",
+                                       title: "No Data",
+                                       description: "There is no step count data from the Health App.")
+                    }
+                }
+            
 
         }
         .sensoryFeedback(.selection, trigger: selectedDay)
