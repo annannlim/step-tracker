@@ -39,8 +39,21 @@ struct HealthKitPermissionPrimingView: View {
             Button("Connect Apple Health") {
                 isShowingHealthKitPermissions = true
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.pink)
+            .prominentButton(color: .pink)
+
+//            if #available(iOS 26, *) {
+//                Button("Connect Apple Health") {
+//                    isShowingHealthKitPermissions = true
+//                }
+//                .buttonStyle(.glassProminent)
+//                .tint(.pink)
+//            } else {
+//                Button("Connect Apple Health") {
+//                    isShowingHealthKitPermissions = true
+//                }
+//                .buttonStyle(.borderedProminent)
+//                .tint(.pink)
+//            }
         }
         .padding(30)
         .healthDataAccessRequest(store: hkManager.store,
