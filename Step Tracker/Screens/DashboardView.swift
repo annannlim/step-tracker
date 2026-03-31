@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Charts
+import FoundationModels
 
 enum HealthMetricContext: CaseIterable, Identifiable {
     case steps, weight
@@ -80,6 +81,15 @@ struct DashboardView: View {
                 // Action
             } message: { fetchError in
                 Text(fetchError.failureReason)
+            }
+            .toolbar {
+                if #available(iOS 26, *) {
+                    if DataAnalyzer.shared.model.isAvailable {
+                        Button("Analyze Data", systemImage: "apple.intelligence") {
+                            
+                        }
+                    }
+                }
             }
         }
         .tint(navBarTint)
