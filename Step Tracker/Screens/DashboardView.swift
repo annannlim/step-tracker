@@ -85,9 +85,13 @@ struct DashboardView: View {
             .toolbar {
                 if #available(iOS 26, *) {
                     if DataAnalyzer.shared.model.isAvailable {
-                        Button("Analyze Data", systemImage: "apple.intelligence") {
-                            
-                        }
+                        if hkData.stepData.count > 0 && hkData.weightData.count > 0 {
+                            Button("Analyze Data", systemImage: "apple.intelligence") {
+                                Task {
+                                    await DataAnalyzer.shared.analyzeHealthData()
+                                }
+                            }
+                       }
                     }
                 }
             }
