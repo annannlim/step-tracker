@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E07E22C2F7EB21C005A4969 /* CoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E07E22B2F7EB21B005A4969 /* CoachView.swift */; };
 		9E23C0902F7BDFD7007266E9 /* DataAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23C08F2F7BDFD7007266E9 /* DataAnalyzer.swift */; };
 		9E3C44052F6716A90035AEC8 /* WeightDiffBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C44042F67169E0035AEC8 /* WeightDiffBarChart.swift */; };
 		9E5EC37F2F77EB03003399D5 /* CustomModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5EC37E2F77EAF9003399D5 /* CustomModifiers.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E07E22B2F7EB21B005A4969 /* CoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachView.swift; sourceTree = "<group>"; };
 		9E23C08F2F7BDFD7007266E9 /* DataAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAnalyzer.swift; sourceTree = "<group>"; };
 		9E3C44042F67169E0035AEC8 /* WeightDiffBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDiffBarChart.swift; sourceTree = "<group>"; };
 		9E5EC37E2F77EAF9003399D5 /* CustomModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModifiers.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				9E7195F52F5ED8A60061C069 /* DashboardView.swift */,
 				9E7195F62F5ED8A60061C069 /* HealthDataListView.swift */,
 				9E7195F72F5ED8A60061C069 /* HealthKitPermissionPrimingView.swift */,
+				9E07E22B2F7EB21B005A4969 /* CoachView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				9E7195FD2F5ED8A60061C069 /* Step_TrackerApp.swift in Sources */,
 				9E3C44052F6716A90035AEC8 /* WeightDiffBarChart.swift in Sources */,
 				9EB478EA2F6DA2D300DE0148 /* ChartHelper.swift in Sources */,
+				9E07E22C2F7EB21C005A4969 /* CoachView.swift in Sources */,
 				9E7E12562F6303DB001D1A34 /* HealthMetric.swift in Sources */,
 				9EF786362F647BE300C8A8DB /* ChartDataTypes.swift in Sources */,
 				9EF7863F2F648A1E00C8A8DB /* StepPieChart.swift in Sources */,

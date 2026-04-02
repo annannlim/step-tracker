@@ -26,11 +26,13 @@ struct DashboardView: View {
     
     @Environment(HealthKitManager.self) private var hkManager
     @Environment(HealthKitData.self) private var hkData
+    @Namespace var zoomTransition
     @State private var isShowingPermissionPrimingSheet = false
     @State private var selectedStat: HealthMetricContext = .steps
     @State private var isShowingAlert = false
     @State private var fetchError: STError = .noData
-     
+    @State private var isShowingCoachView = false
+        
     var metricColor: Color {
         selectedStat == .steps ? .pink: .indigo
     }
@@ -77,6 +79,7 @@ struct DashboardView: View {
             }, content: {
                 HealthKitPermissionPrimingView()
             })
+            .backportSheet(isPresented: $isShowingCoachView, namespace: zoomTransition) 
             .alert(isPresented: $isShowingAlert, error: fetchError) { fetchError in
                 // Action
             } message: { fetchError in
@@ -85,13 +88,17 @@ struct DashboardView: View {
             .toolbar {
                 if #available(iOS 26, *) {
                     if DataAnalyzer.shared.model.isAvailable {
-                        if hkData.stepData.count > 0 && hkData.weightData.count > 0 {
-                            Button("Analyze Data", systemImage: "apple.intelligence") {
-                                Task {
-                                    await DataAnalyzer.shared.analyzeHealthData()
+                        ToolbarItem {
+                            if hkData.stepData.count > 0 && hkData.weightData.count > 0 {
+                                Button("Analyze Data", systemImage: "apple.intelligence") {
+                                    Task {
+                                        isShowingCoachView.toggle()
+                                        await DataAnalyzer.shared.analyzeHealthData()
+                                    }
                                 }
                             }
-                       }
+                        }
+                        .matchedTransitionSource(id: "coachview", in: zoomTransition)
                     }
                 }
             }
